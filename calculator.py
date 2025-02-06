@@ -11,26 +11,24 @@ class Calculator:
         self.entry_value = ''
         Entry(width=17, bg='#Ffc0cb', font=('Arial Bold', 28), textvariable=self.equation).place(x=0, y=0)
 
-        Button(width=11, height=4, text='(', relief="flat", bg="white", command=lambda:self.show('(')).place(x= 0,y=50 )
-        Button(width=11, height=4, text=')', relief="flat", bg="white", command=lambda:self.show(')')).place(x= 90,y=50 )
-        Button(width=11, height=4, text='%', relief="flat", bg="white", command=lambda:self.show('%')).place(x= 180,y=50 )
-        Button(width=11, height=4, text='1', relief="flat", bg="white", command=lambda:self.show(1)).place(x= 0,y=125)
-        Button(width=11, height=4, text='2', relief="flat", bg="white", command=lambda:self.show(2)).place(x= 90,y=125 )
-        Button(width=11, height=4, text='3', relief="flat", bg="white", command=lambda:self.show(3)).place(x= 180,y=125 )
-        Button(width=11, height=4, text='4', relief="flat", bg="white", command=lambda:self.show(4)).place(x= 0,y=200 )
-        Button(width=11, height=4, text='5', relief="flat", bg="white", command=lambda:self.show(5)).place(x= 90,y=200 )
-        Button(width=11, height=4, text='6', relief="flat", bg="white", command=lambda:self.show(6)).place(x= 180,y=200 )
-        Button(width=11, height=4, text='7', relief="flat", bg="white", command=lambda:self.show(7)).place(x= 0 ,y=275 )
-        Button(width=11, height=4, text='8', relief="flat", bg="white", command=lambda:self.show(8)).place(x= 90,y=275 )
-        Button(width=11, height=4, text='9', relief="flat", bg="white", command=lambda:self.show(9)).place(x= 180,y=275 )
-        Button(width=11, height=4, text='0', relief="flat", bg="white", command=lambda:self.show(0)).place(x= 90,y=350 )
-        Button(width=11, height=4, text='.', relief="flat", bg="white", command=lambda:self.show('.')).place(x= 180,y=350 )
-        Button(width=11, height=4, text='+', relief="flat", bg="white", command=lambda:self.show('+')).place(x=270 ,y= 275)
-        Button(width=11, height=4, text='-', relief="flat", bg="white", command=lambda:self.show('-')).place(x=270 ,y=200 )
-        Button(width=11, height=4, text='/', relief="flat", bg="white", command=lambda:self.show('/')).place(x=270 ,y= 50)
-        Button(width=11, height=4, text='*', relief="flat", bg="white", command=lambda: self.show('*')).place(x=270, y=125)
-        Button(width=11, height=4, text='=', relief="flat", bg="pink", command=self.solve).place(x= 270,y= 350 )
-        Button(width=11, height=4, text='C', relief="flat", bg="white", command=self.clear).place(x= 0,y= 350)
+        buttons = [
+            {'text': '(', 'x': 0, 'y': 50}, {'text': ')', 'x': 90, 'y': 50}, {'text': '%', 'x': 180, 'y': 50}, {'text': '/', 'x': 270, 'y': 50},
+            {'text': '1', 'x': 0, 'y': 125}, {'text': '2', 'x': 90, 'y': 125}, {'text': '3', 'x': 180, 'y': 125}, {'text': '*', 'x': 270, 'y': 125},
+            {'text': '4', 'x': 0, 'y': 200}, {'text': '5', 'x': 90, 'y': 200}, {'text': '6', 'x': 180, 'y': 200}, {'text': '-', 'x': 270, 'y': 200},
+            {'text': '7', 'x': 0, 'y': 275}, {'text': '8', 'x': 90, 'y': 275}, {'text': '9', 'x': 180, 'y': 275}, {'text': '+', 'x': 270, 'y': 275},
+            {'text': 'C', 'x': 0, 'y': 350, 'bg': 'white', 'command': self.clear}, 
+            {'text': '0', 'x': 90, 'y': 350}, {'text': '.', 'x': 180, 'y': 350}, {'text': '=', 'x': 270, 'y': 350, 'bg': 'pink', 'command': self.solve}
+        ]
+
+        for btn in buttons:
+            Button(
+             width=11,
+             height=4,
+             text=btn['text'],
+             relief="flat",
+             bg=btn.get('bg', 'white'),  # Default to white if bg not specified
+             command=btn.get('command', lambda t=btn['text']: self.show(t))   
+            ).place(x=btn['x'], y=btn['y'])
 
     def show(self, value):
         self.entry_value += str(value)
