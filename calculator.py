@@ -1,29 +1,46 @@
 from tkinter import Tk, Entry, Button, StringVar
+import math
 
-class Calculator:
+class ScientificCalculator:
     def __init__(self, master):
-        master.title("Calculator")
-        master.geometry("357x420+0+0")  
+        master.title("Scientific Calculator")
+        master.geometry("400x600+0+0")
         master.config(bg='pink')
         master.resizable(False, False)
 
         self.equation = StringVar()
         self.entry_value = ''
-        Entry(width=17, bg='#Ffc0cb', font=('Arial Bold', 28), textvariable=self.equation).place(x=0, y=0)
+        Entry(width=17, bg='#Ffc0cb', font=('Arial Bold', 24), textvariable=self.equation).place(x=0, y=0)
 
+        #Standard buttons
         buttons = [
-            {'text': '(', 'x': 0, 'y': 50}, {'text': ')', 'x': 90, 'y': 50}, {'text': '%', 'x': 180, 'y': 50}, {'text': '/', 'x': 270, 'y': 50},
-            {'text': '1', 'x': 0, 'y': 125}, {'text': '2', 'x': 90, 'y': 125}, {'text': '3', 'x': 180, 'y': 125}, {'text': '*', 'x': 270, 'y': 125},
-            {'text': '4', 'x': 0, 'y': 200}, {'text': '5', 'x': 90, 'y': 200}, {'text': '6', 'x': 180, 'y': 200}, {'text': '-', 'x': 270, 'y': 200},
-            {'text': '7', 'x': 0, 'y': 275}, {'text': '8', 'x': 90, 'y': 275}, {'text': '9', 'x': 180, 'y': 275}, {'text': '+', 'x': 270, 'y': 275},
-            {'text': 'C', 'x': 0, 'y': 350, 'bg': 'white', 'command': self.clear}, 
-            {'text': '0', 'x': 90, 'y': 350}, {'text': '.', 'x': 180, 'y': 350}, {'text': '=', 'x': 270, 'y': 350, 'bg': 'pink', 'command': self.solve}
+           {'text': 'C', 'x': 0, 'y': 60, 'bg': 'red', 'command': self.clear},
+            {'text': '(', 'x': 80, 'y': 60}, {'text': ')', 'x': 160, 'y': 60}, {'text': '/', 'x': 240, 'y': 60},
+            {'text': '7', 'x': 0, 'y': 120}, {'text': '8', 'x': 80, 'y': 120}, {'text': '9', 'x': 160, 'y': 120}, {'text': '*', 'x': 240, 'y': 120},
+            {'text': '4', 'x': 0, 'y': 180}, {'text': '5', 'x': 80, 'y': 180}, {'text': '6', 'x': 160, 'y': 180}, {'text': '-', 'x': 240, 'y': 180},
+            {'text': '1', 'x': 0, 'y': 240}, {'text': '2', 'x': 80, 'y': 240}, {'text': '3', 'x': 160, 'y': 240}, {'text': '+', 'x': 240, 'y': 240},
+            {'text': '0', 'x': 80, 'y': 300}, {'text': '.', 'x': 160, 'y': 300}, {'text': '=', 'x': 240, 'y': 300, 'bg': 'green', 'command': self.solve}
         ]
 
-        for btn in buttons:
+        #Scientific buttons
+        scientific_buttons = [
+            {'text': 'π', 'x': 0, 'y': 360, 'command': lambda: self.show('math.pi')},
+            {'text': 'e', 'x': 80, 'y': 360, 'command': lambda: self.show('math.e')},
+            {'text': 'sin', 'x': 160, 'y': 360, 'command': lambda: self.show('math.sin(')},
+            {'text': 'cos', 'x': 240, 'y': 360, 'command': lambda: self.show('math.cos(')},
+            {'text': 'tan', 'x': 0, 'y': 420, 'command': lambda: self.show('math.tan(')},
+            {'text': 'log', 'x': 80, 'y': 420, 'command': lambda: self.show('math.log10(')},
+            {'text': 'ln', 'x': 160, 'y': 420, 'command': lambda: self.show('math.log(')},
+            {'text': '√', 'x': 240, 'y': 420, 'command': lambda: self.show('math.sqrt(')},
+            {'text': 'x²', 'x': 0, 'y': 480, 'command': lambda: self.show('**2')},
+            {'text': 'xʸ', 'x': 80, 'y': 480, 'command': lambda: self.show('**')},
+        ]
+
+        #Create standard buttons
+        for btn in buttons + scientific_buttons:
             Button(
-             width=11,
-             height=4,
+             width=10,
+             height=2,
              text=btn['text'],
              relief="flat",
              bg=btn.get('bg', 'white'),  # Default to white if bg not specified
@@ -46,5 +63,5 @@ class Calculator:
             self.equation.set("Error")
 
 root = Tk()
-Calculator(root)  
+ScientificCalculator(root)  
 root.mainloop()
